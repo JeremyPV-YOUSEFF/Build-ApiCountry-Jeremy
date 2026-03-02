@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+@import "tailwindcss";
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme{
+
+    /* Font family */
+    --font-nunito : "Nunito Sans", sans-serif;
+
+    /* Colors */
+    --color-blue-900-d: hsl(209, 23%, 22%);
+    --color-blue-950-d: hsl(207, 26%, 17%);
+    --color-gray-950-l: hsl(200, 15%, 8%);
+    --color-gray-400-l: hsl(0, 0%, 50%);
+    --color-gray-50-l : hsl(0, 0%, 99%);
+    --color-gray-bg-l : hsl(0, 0%, 98%);
+    --color-white-d   : hsl(0, 100%, 100%);
+    --color-white   : hsl(0, 0%, 100%);
+
+}

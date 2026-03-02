@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country API</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="font-nunito">
+    
+    <header class="bg-white transition-colors dark:bg-blue-900-d flex justify-between items-center px-4 py-8 shadow" >
+        <!-- Logo -->
+        <h4 class="font-extrabold text-lg text-gray-950-l dark:text-white-d">Where in the world?</h4>
+        <!-- Change Theme -->
+        <label class="text-gray-950-l dark:text-white-d">
+            <input id="theme" type="checkbox" class="peer hidden">
+            <div class="flex space-x-3 items-center cursor-pointer peer-checked:hidden">
+                <svg  xmlns="http://www.w3.org/2000/svg" width="18" height="18"  
+                    fill="currentColor" viewBox="0 0 24 24" >
+                    <path d="M12.2 22c4.53 0 8.45-2.91 9.76-7.24a1.002 1.002 0 0 0-1.25-1.25c-.78.23-1.58.35-2.38.35-4.52 0-8.2-3.68-8.2-8.2 0-.8.12-1.6.35-2.38.11-.35.01-.74-.25-1s-.64-.36-1-.25A10.17 10.17 0 0 0 2 11.8C2 17.42 6.57 22 12.2 22M8.18 4.65c-.03.34-.05.68-.05 1.02 0 5.62 4.57 10.2 10.2 10.2.34 0 .68-.02 1.02-.05C17.93 18.38 15.23 20 12.2 20 7.68 20 4 16.32 4 11.8a8.15 8.15 0 0 1 4.18-7.15"></path>
+                </svg>
+                <h5 class="text-sm pt-1" >Dark Mode</h5>
+            </div>
+            <div class=" space-x-3 items-center cursor-pointer hidden peer-checked:flex">
+                <svg  xmlns="http://www.w3.org/2000/svg" width="18" height="18"  
+                    fill="currentColor" viewBox="0 0 24 24" >
+                    <path d="M12 17.01c2.76 0 5.01-2.25 5.01-5.01S14.76 6.99 12 6.99 6.99 9.24 6.99 12s2.25 5.01 5.01 5.01M12 9c1.66 0 3.01 1.35 3.01 3.01s-1.35 3.01-3.01 3.01-3.01-1.35-3.01-3.01S10.34 9 12 9m1 10h-2v3h2zm0-17h-2v3h2zM2 11h3v2H2zm17 0h3v2h-3zM4.22 18.36l.71.71.71.71 1.06-1.06 1.06-1.06-.71-.71-.71-.71-1.06 1.06zM19.78 5.64l-.71-.71-.71-.71-1.06 1.06-1.06 1.06.71.71.71.71 1.06-1.06zm-12.02.7L6.7 5.28 5.64 4.22l-.71.71-.71.71L5.28 6.7l1.06 1.06.71-.71zm8.48 11.32 1.06 1.06 1.06 1.06.71-.71.71-.71-1.06-1.06-1.06-1.06-.71.71z"></path>
+                </svg>
+                <h5 class="text-sm pt-1" >Light Mode</h5>
+            </div>
+        </label>
+    </header>
+
+    <main class="bg-gray-50-l min-h-screen transition-colors dark:bg-blue-950-d pb-10">
+        <!-- Search and filter -->
+        <section class="flex flex-col mx-4 md:flex-row md:pt-10 md:justify-between">
+
+            <div 
+            class="bg-white dark:bg-blue-900-d rounded-lg shadow mt-8 mb-14 md:w-2/5 md:mb-0 md:mt-0">
+                <label class="relative block cursor-pointer px-6 py-4">
+                    <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-gray-400-l dark:fill-white-d absolute" 
+                        fill="currentColor" viewBox="0 0 24 24" >
+                        <path d="M18 10c0-4.41-3.59-8-8-8s-8 3.59-8 8 3.59 8 8 8c1.85 0 3.54-.63 4.9-1.69l5.1 5.1L21.41 20l-5.1-5.1A8 8 0 0 0 18 10M4 10c0-3.31 2.69-6 6-6s6 2.69 6 6-2.69 6-6 6-6-2.69-6-6"></path>
+                    </svg>
+                    <input id="search" type="text" class="w-full pl-9 outline-none text-gray-400-l dark:text-white-d italic focus:not-italic" placeholder="Search for a country...">
+                </label>
+            </div>
+            
+            <div 
+            class="bg-white dark:bg-blue-900-d w-3/5  md:w-1/5 rounded-lg shadow ">
+                <label 
+                class="relative flex justify-between px-6 py-4 cursor-pointer">
+                    <input type="checkbox" class="hidden peer">
+                    <h4 class="text-gray-950-l dark:text-white-d" >Filter by Region</h4> 
+                    <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-gray-950-l dark:fill-white-d peer-checked:hidden" 
+                        fill="currentColor" viewBox="0 0 24 24" >
+                        <path d="m12 15.41 5.71-5.7-1.42-1.42-4.29 4.3-4.29-4.3-1.42 1.42z"></path>
+                    </svg>
+                    <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-gray-950-l dark:fill-white-d hidden peer-checked:block"
+                        fill="currentColor" viewBox="0 0 24 24"  
+                        transform="rotate(180)">
+                        <path d="m12 15.41 5.71-5.7-1.42-1.42-4.29 4.3-4.29-4.3-1.42 1.42z"></path>
+                    </svg>
+                    <ul 
+                    class="absolute top-16 left-0 bg-white dark:bg-blue-900-d w-full text-gray-950-l dark:text-white-d hidden peer-checked:block rounded-lg">
+                        <li onclick="changeRegion('Africa')" class="hover:bg-gray-50-l dark:hover:bg-white-d hover:text-gray-400-l px-6 py-2 rounded-t-lg" >Africa</li>
+                        <li onclick="changeRegion('America')" class="hover:bg-gray-50-l dark:hover:bg-white-d hover:text-gray-400-l px-6 py-2" >America</li>
+                        <li onclick="changeRegion('Asia')" class="hover:bg-gray-50-l dark:hover:bg-white-d hover:text-gray-400-l px-6 py-2" >Asia</li>
+                        <li onclick="changeRegion('Europe')" class="hover:bg-gray-50-l dark:hover:bg-white-d hover:text-gray-400-l px-6 py-2" >Europe</li>
+                        <li onclick="changeRegion('Oceania')" class="hover:bg-gray-50-l dark:hover:bg-white-d hover:text-gray-400-l px-6 py-2 rounded-b-lg" >Oceania</li>
+                    </ul>
+                </label>
+            </div>
+
+        </section>
+        <!-- List of countries -->
+
+        <section 
+        class="my-10 mx-16 space-y-10" >
+
+            <!-- Error message -->
+             <div 
+             id="errorMessage"
+             class="text-center hidden" >
+                    <p class="text-xl font-extrabold text-gray-950-l dark:text-white-d" >¡An error ocurred!</p>
+                    <h6 class="text-lg font-extralight text-gray-950-l dark:text-white-d">Try again later</h6>
+             </div>
+
+            <!-- Loading -->
+             <div 
+             id="loading" class="text-center hidden">
+                <div class="flex space-x-4 justify-center">
+                    <p class="text-xl text-gray-950-l dark:text-white-d">Loading</p>
+                    <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+                    class="fill-gray-950-l dark:fill-white-d animate-spin"
+                        fill="currentColor" viewBox="0 0 24 24" >
+                        <path d="M12 18a2 2 0 1 0 0 4 2 2 0 1 0 0-4m0-16a2 2 0 1 0 0 4 2 2 0 1 0 0-4M7.76 19.07c-.78.78-2.05.78-2.83 0s-.78-2.05 0-2.83 2.05-.78 2.83 0 .78 2.05 0 2.83M19.07 7.76c-.78.78-2.05.78-2.83 0s-.78-2.05 0-2.83 2.05-.78 2.83 0 .78 2.05 0 2.83M4 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m16 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2M4.93 7.76c-.78-.78-.78-2.05 0-2.83s2.05-.78 2.83 0 .78 2.05 0 2.83-2.05.78-2.83 0m11.31 11.31c-.78-.78-.78-2.05 0-2.83s2.05-.78 2.83 0 .78 2.05 0 2.83-2.05.78-2.83 0"></path>
+                    </svg>
+                </div>
+             </div>
+
+            <!-- Paginate -->
+            <div
+            id="paginate" 
+            class="justify-between space-x-3 hidden">
+                    <div 
+                    id="backPage"
+                    class="size-10 bg-white hover:bg-gray-400-l group dark:bg-blue-900-d dark:hover:border-2 dark:hover:bg-blue-950-d border-white rounded-lg flex justify-center items-center cursor-pointer shadow">
+                        <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+                        class="fill-gray-400-l dark:fill-white-d absolute group-hover:fill-white"  
+                            fill="currentColor" viewBox="0 0 24 24" >
+                            <path d="m14.76 6.09-6.11 5.35c-.34.3-.34.83 0 1.13l6.11 5.35c.48.42 1.24.08 1.24-.56V6.65c0-.64-.76-.99-1.24-.56"></path>
+                        </svg>
+                    </div>
+                    <div 
+                    id="paginate-content"
+                    class="flex-1 flex flex-wrap gap-3 justify-center *:shadow"><!-- 
+                        <div 
+                        class="size-10 bg-white hover:bg-gray-400-l dark:bg-blue-900-d dark:hover:bg-blue-950-d dark:hover:border-2 border-white-d rounded-lg flex justify-center items-center cursor-pointer group"><span class="text-gray-950-l dark:text-white-d group-hover:text-gray-50-l dark:group-hover:text-gray-400-l">1</span></div>
+                         -->
+                    </div>
+                    <div 
+                    id="nextPage"
+                    class="size-10 bg-white hover:bg-gray-400-l group dark:bg-blue-900-d dark:hover:bg-blue-950-d border-white dark:hover:border-2 rounded-lg flex justify-center items-center cursor-pointer shadow">
+                        <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+                        class="fill-gray-400-l dark:fill-white-d absolute group-hover:fill-white"
+                            fill="currentColor" viewBox="0 0 24 24"  
+                            transform="rotate(180)">
+                            <path d="m14.76 6.09-6.11 5.35c-.34.3-.34.83 0 1.13l6.11 5.35c.48.42 1.24.08 1.24-.56V6.65c0-.64-.76-.99-1.24-.56"></path>
+                        </svg>
+                    </div>
+            </div>
+
+            <ul id="list-content" 
+            class="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5" >
+                <!-- <li class="flex flex-col bg-white dark:bg-blue-900-d shadow rounded-lg">
+                    <img src="" alt="" class="h-44 bg-center bg-cover rounded-t-lg">
+                    <div class="py-5 space-y-2 px-4">
+                        <h2 class="text-xl font-extrabold text-gray-950-l pb-3 dark:text-white-d">Germany</h2>
+                        <h4 class="font-semibold text-gray-950-l dark:text-white-d">Population: <span class="font-light text-gray-400-l dark:text-white-d">81,770,900</span></h4>
+                        <h4 class="font-semibold text-gray-950-l dark:text-white-d">Region: <span class="font-light text-gray-400-l dark:text-white-d">Europe</span></h4>
+                        <h4 class="font-semibold text-gray-950-l dark:text-white-d">Capital: <span class="font-light text-gray-400-l dark:text-white-d">Berlin</span></h4>
+                    </div>
+                </li> -->
+            </ul>
+            
+        </section>
+
+    </main>
+
+    <script src="./script.js" ></script>
+</body>
+</html>
