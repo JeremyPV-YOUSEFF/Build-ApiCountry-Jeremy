@@ -32,7 +32,7 @@ async function uploadCountries(){
             let data = await fetch(url).then(response => response.json());
             data = data.sort((a,b) => a.name.common.localeCompare(b.name.common))
             localStorage.setItem('countries',JSON.stringify(data));
-            country = JSON.parse(getData);
+            country = JSON.parse(localStorage.getItem('countries'));
         } catch (error) {
             document.getElementById('errorMessage').classList.remove('hidden');
             document.getElementById('paginate').classList.remove('flex');
@@ -40,6 +40,7 @@ async function uploadCountries(){
         }
     }
     countryCopy = country ? [...country] : []
+    getPage();
 }
 
 uploadCountries();

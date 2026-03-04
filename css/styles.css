@@ -200,38 +200,17 @@
   .start {
     inset-inline-start: var(--spacing);
   }
-  .top-1 {
-    top: calc(var(--spacing) * 1);
-  }
   .top-1\/2 {
     top: calc(1 / 2 * 100%);
   }
   .top-16 {
     top: calc(var(--spacing) * 16);
   }
-  .-right-0 {
-    right: calc(var(--spacing) * -0);
-  }
   .-right-30 {
     right: calc(var(--spacing) * -30);
   }
-  .right-0 {
-    right: calc(var(--spacing) * 0);
-  }
-  .-left-10 {
-    left: calc(var(--spacing) * -10);
-  }
-  .-left-30 {
-    left: calc(var(--spacing) * -30);
-  }
   .left-0 {
     left: calc(var(--spacing) * 0);
-  }
-  .left-4 {
-    left: calc(var(--spacing) * 4);
-  }
-  .left-10 {
-    left: calc(var(--spacing) * 10);
   }
   .z-50 {
     z-index: 50;
@@ -294,20 +273,11 @@
   .min-h-screen {
     min-height: 100vh;
   }
-  .w-1 {
-    width: calc(var(--spacing) * 1);
-  }
   .w-1\/3 {
     width: calc(1 / 3 * 100%);
   }
-  .w-3 {
-    width: calc(var(--spacing) * 3);
-  }
   .w-3\/5 {
     width: calc(3 / 5 * 100%);
-  }
-  .w-auto {
-    width: auto;
   }
   .w-full {
     width: 100%;
@@ -315,18 +285,8 @@
   .flex-1 {
     flex: 1;
   }
-  .flex-grow {
-    flex-grow: 1;
-  }
   .grow {
     flex-grow: 1;
-  }
-  .border-collapse {
-    border-collapse: collapse;
-  }
-  .-translate-y-1 {
-    --tw-translate-y: calc(var(--spacing) * -1);
-    translate: var(--tw-translate-x) var(--tw-translate-y);
   }
   .-translate-y-1\/2 {
     --tw-translate-y: calc(calc(1 / 2 * 100%) * -1);
@@ -340,9 +300,6 @@
   }
   .cursor-pointer {
     cursor: pointer;
-  }
-  .resize {
-    resize: both;
   }
   .grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -445,9 +402,6 @@
   .border-white-d {
     border-color: var(--color-white-d);
   }
-  .bg-amber-100 {
-    background-color: var(--color-amber-100);
-  }
   .bg-gray-50 {
     background-color: var(--color-gray-50);
   }
@@ -456,9 +410,6 @@
   }
   .bg-gray-400-l {
     background-color: var(--color-gray-400-l);
-  }
-  .bg-red-100 {
-    background-color: var(--color-red-100);
   }
   .bg-white {
     background-color: var(--color-white);
