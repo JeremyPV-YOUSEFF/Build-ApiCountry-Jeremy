@@ -22,36 +22,35 @@ let url = '';
 function getPage(){
     const params = new URLSearchParams(window.location.search);
     const country = params.get("country");
-    console.log(country)
     if (!country) return;
-    url = `https://restcountries.com/v3.1/name/${country}`
-    getCountry();
+    //url = `https://restcountries.com/v3.1/name/${country}`
+    getCountry(country);
 }
 
 getPage();
 
-async function getCountry(){
+async function getCountry(country){
     try {
         /* Show loading */
         document.getElementById('loading').classList.remove('hidden');
         
         /* Delay */
-        await delay(1000);
+        await delay(500);
         
-        const data = await fetch(url).then(response => response.json());
-        
+        //const data = await fetch(url).then(response => response.json());
+        let data = JSON.parse(localStorage.getItem('countries'));
+        data = data.filter(x => x.name.common == country);
+
+
         /* Hidden loading */
         document.getElementById('loading').classList.add('hidden');
 
         /* Show arrow back */
         document.getElementById('back').classList.remove('hidden');
         
-        console.log(data[0])
         buildCard(data[0]);
         
     } catch (error) {
-        console.log('error');
-
         document.getElementById('loading').classList.add('hidden');
 
         /* Show error */
@@ -215,7 +214,7 @@ function buildCard(data){
     h2_3.textContent = 'Border Countries';
     
     div_content.className = 'flex flex-wrap gap-3';
-    const borders = data.borders ?? ['none']    
+    const borders = data.borders ?? ['none']       
     borders.forEach(element => {
         const div_item = document.createElement('div');
         div_item.className = 'text-sm px-4 py-2 rounded-lg shadow bg-gray-50 dark:bg-blue-900-d text-gray-950-l dark:text-white-d';

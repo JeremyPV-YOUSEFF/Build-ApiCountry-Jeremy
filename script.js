@@ -16,16 +16,46 @@ function changeTheme(){
 
 changeTheme();
 
+/* Upload all countries */
+
+let country;
+let countryCopy;
+
+const url = 'https://restcountries.com/v3.1/all?fields=name,capital,population,region,flags,subregion,tld,currencies,languages,borders';
+
+async function uploadCountries(){
+    const getData = localStorage.getItem('countries');
+    if (getData) {
+        country = JSON.parse(getData);
+    }else{
+        try {
+            let data = await fetch(url).then(response => response.json());
+            data = data.sort((a,b) => a.name.common.localeCompare(b.name.common))
+            localStorage.setItem('countries',JSON.stringify(data));
+            country = JSON.parse(getData);
+        } catch (error) {
+            document.getElementById('errorMessage').classList.remove('hidden');
+            document.getElementById('paginate').classList.remove('flex');
+            document.getElementById('paginate').classList.add('hidden');
+        }
+    }
+    countryCopy = country ? [...country] : []
+}
+
+uploadCountries();
+
 /* Api */
 
 let pageSize = 20;
 let currentPage = 1;
 let totalPages;
-let url = 'https://restcountries.com/v3.1/all?fields=name,capital,population,region,flags';
 
 async function getCountries(){
     try {
-        
+
+        const countryLocal = countryCopy
+
+        if (!countryLocal) return;
 
         /* Delete country-items */
         const items =document.querySelectorAll('.list-item');
@@ -38,12 +68,10 @@ async function getCountries(){
         /* Show loading */
         document.getElementById('loading').classList.remove('hidden');
 
-        await delay(1000)
+        await delay(500)
 
         /* Hidden message */
         document.getElementById('errorMessage').classList.add('hidden');
-
-        const data = await fetch(url).then(response => response.json());
 
         const ul = document.getElementById('list-content');
 
@@ -51,28 +79,34 @@ async function getCountries(){
         document.getElementById('loading').classList.add('hidden');
 
         /* Paginate logic */
-        const total = data.length;
+        const total = countryLocal.length;
         const _totalPages =  Math.ceil(total/pageSize);
         totalPages = _totalPages;
 
-        document.getElementById('paginate').classList.remove('hidden');
-        document.getElementById('paginate').classList.add('flex'); 
-        loadPages(_totalPages);
+        if (countryLocal.length > 0) {
+            document.getElementById('paginate').classList.remove('hidden');
+            document.getElementById('paginate').classList.add('flex'); 
+            loadPages(_totalPages);
+        }else{
+            document.getElementById('paginate').classList.add('hidden');
+            document.getElementById('paginate').classList.remove('flex'); 
+        }
 
-        var countryPerPage = data.slice((pageSize*currentPage)-pageSize,pageSize*currentPage)
+        var countryPerPage = countryLocal.slice((pageSize*currentPage)-pageSize,pageSize*currentPage)
 
         countryPerPage.forEach(element => {
             cardCountry(element,ul);
         });
+
     } catch (error) {
-        document.getElementById('errorMessage').classList.remove('hidden');
+        /* document.getElementById('errorMessage').classList.remove('hidden');
         document.getElementById('paginate').classList.remove('flex');
-        document.getElementById('paginate').classList.add('hidden');
+        document.getElementById('paginate').classList.add('hidden'); */
     }
     
 }
 
-/* getCountries(); */
+
 
 /* wait */
 async function delay(ms){
@@ -92,7 +126,8 @@ function cardCountry(element,ul){
     const span_2 = document.createElement('span');
     const span_3 = document.createElement('span');
 
-    li.className = `flex flex-col cursor-pointer bg-white hover:border-2 hover:border-gray-950-l dark:hover:border-2 dark:hover:border-white-d dark:bg-blue-900-d shadow rounded-lg`;
+    li.className = `flex flex-col cursor-pointer bg-white hover:border-2 
+    hover:border-gray-950-l dark:hover:border-2 dark:hover:border-white-d dark:bg-blue-900-d shadow rounded-lg`;
     li.classList.add('list-item');
 
     li.addEventListener('click',() => {
@@ -214,9 +249,10 @@ document.getElementById('backPage').addEventListener('click',() => {
 /* Change region */
 function changeRegion(region){
     document.getElementById('search').value = "";
-    const newUrl = `https://restcountries.com/v3.1/region/${region}`;
-    url = newUrl;
+    let data = country;
+    countryCopy = data.filter(x => x.region == region);
     changePage(1);
+    document.getElementById('removeFilters').classList.remove('hidden');
 }
 
 /* Search */
@@ -225,15 +261,31 @@ let timeOutId;
 search.addEventListener('keydown',(x) => {
     clearTimeout(timeOutId);
     timeOutId = setTimeout(() => {
-        const newSearch = search.value.trim();
+        const newSearch = search.value.trim().toLowerCase();
         if (newSearch.length == 0) {
-            url = `https://restcountries.com/v3.1/all?fields=name,capital,population,region,flags`;
+            let data = country;
+            countryCopy = data;
             changePage(1);
+            document.getElementById('removeFilters').classList.add('hidden');
         }
         if (newSearch.length>3) {
-            const newUrl = `https://restcountries.com/v3.1/name/${newSearch}`;
-            url = newUrl;
+            document.getElementById('removeFilters').classList.remove('hidden');
+            countryCopy = countryCopy.filter((x) => x.name.common.toLowerCase() == newSearch);
+            if (countryCopy.length == 0) {
+                document.getElementById('notFound').classList.remove('hidden')
+            }
             changePage(1);
         }
     }, 1000);
+})
+
+/* Remove all filter */
+const remove = document.getElementById('removeFilters')
+remove.addEventListener('click',() => {
+    let data = country;
+    countryCopy = data;
+    document.getElementById('search').value = "";
+    changePage(1);
+    remove.classList.add('hidden')
+    document.getElementById('notFound').classList.add('hidden')
 })

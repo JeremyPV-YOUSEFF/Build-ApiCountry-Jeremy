@@ -31,7 +31,7 @@
         </label>
     </header>
 
-    <main class="bg-gray-50-l min-h-screen transition-colors dark:bg-blue-950-d pb-10">
+    <main class="bg-gray-50-l min-h-screen h-full transition-colors dark:bg-blue-950-d pb-10">
         <!-- Search and filter -->
         <section class="flex flex-col mx-4 md:flex-row md:pt-10 md:justify-between">
 
@@ -47,7 +47,11 @@
             </div>
             
             <div 
-            class="bg-white dark:bg-blue-900-d w-3/5  md:w-1/5 rounded-lg shadow ">
+            class="relative  bg-white dark:bg-blue-900-d w-3/5  md:w-1/5 rounded-lg shadow ">
+            <span 
+            id="removeFilters"
+            class="absolute hidden underline -right-30  md:-left-30 top-1/2 -translate-y-1/2 text-gray-950-l dark:text-white-d
+                    cursor-pointer hover:text-gray-400-l ">Remove filters</span>
                 <label 
                 class="relative flex justify-between px-6 py-4 cursor-pointer">
                     <input type="checkbox" class="hidden peer">
@@ -62,9 +66,9 @@
                         <path d="m12 15.41 5.71-5.7-1.42-1.42-4.29 4.3-4.29-4.3-1.42 1.42z"></path>
                     </svg>
                     <ul 
-                    class="absolute top-16 left-0 bg-white dark:bg-blue-900-d w-full text-gray-950-l dark:text-white-d hidden peer-checked:block rounded-lg">
+                    class="absolute top-16 left-0 z-50 bg-white dark:bg-blue-900-d w-full text-gray-950-l dark:text-white-d hidden peer-checked:block rounded-lg">
                         <li onclick="changeRegion('Africa')" class="hover:bg-gray-50-l dark:hover:bg-white-d hover:text-gray-400-l px-6 py-2 rounded-t-lg" >Africa</li>
-                        <li onclick="changeRegion('America')" class="hover:bg-gray-50-l dark:hover:bg-white-d hover:text-gray-400-l px-6 py-2" >America</li>
+                        <li onclick="changeRegion('Americas')" class="hover:bg-gray-50-l dark:hover:bg-white-d hover:text-gray-400-l px-6 py-2" >America</li>
                         <li onclick="changeRegion('Asia')" class="hover:bg-gray-50-l dark:hover:bg-white-d hover:text-gray-400-l px-6 py-2" >Asia</li>
                         <li onclick="changeRegion('Europe')" class="hover:bg-gray-50-l dark:hover:bg-white-d hover:text-gray-400-l px-6 py-2" >Europe</li>
                         <li onclick="changeRegion('Oceania')" class="hover:bg-gray-50-l dark:hover:bg-white-d hover:text-gray-400-l px-6 py-2 rounded-b-lg" >Oceania</li>
@@ -85,6 +89,13 @@
                     <p class="text-xl font-extrabold text-gray-950-l dark:text-white-d" >¡An error ocurred!</p>
                     <h6 class="text-lg font-extralight text-gray-950-l dark:text-white-d">Try again later</h6>
              </div>
+
+            <!-- Country not found -->
+            <div 
+             id="notFound"
+             class="text-center hidden" >
+                    <p class="text-xl font-extrabold text-gray-950-l dark:text-white-d" >there are no matches</p>
+            </div>
 
             <!-- Loading -->
              <div 
@@ -131,6 +142,15 @@
 
             <ul id="list-content" 
             class="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5" >
+                <!-- <li class="flex flex-col bg-white dark:bg-blue-900-d shadow rounded-lg">
+                    <img src="" alt="" class="h-44 bg-center bg-cover rounded-t-lg">
+                    <div class="py-5 space-y-2 px-4 h-auto">
+                        <h2 class="text-xl font-extrabold text-gray-950-l pb-3 dark:text-white-d">Germany to maricas fwesw to vewvwe</h2>
+                        <h4 class="font-semibold text-gray-950-l dark:text-white-d">Region: <span class="font-light text-gray-400-l dark:text-white-d">Europe To America</span></h4>
+                        <h4 class="font-semibold text-gray-950-l dark:text-white-d">Population: <span class="font-light text-gray-400-l dark:text-white-d">81,770,900.2112312</span></h4>
+                        <h4 class="font-semibold text-gray-950-l dark:text-white-d">Capital: <span class="font-light text-gray-400-l dark:text-white-d">City on sna marcino</span></h4>
+                    </div>
+                </li> -->
             </ul>
             
         </section>
